@@ -6,4 +6,4 @@ Room = new mongoose.Schema(
   body: String
 )
 
-module.exports = mongoose.model 'Room', Room
+exports.Room = mongoose.model 'Room', Room

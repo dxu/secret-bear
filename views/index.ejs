@@ -7,5 +7,10 @@
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+    <form method="post" action="room/new">
+      <label for="add_rn"> Name </label>
+      <input id="add_rn" name="room[name]" />
+      <input type="submit" value="submit" />
+    </form>
   </body>
 </html>

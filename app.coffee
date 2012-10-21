@@ -3,6 +3,7 @@
 Module dependencies.
 ###
 express = require("express")
+mongoose = require("mongoose")
 routes = require("./routes")
 user = require("./routes/user")
 room = require("./routes/room")
@@ -24,10 +25,12 @@ app.configure ->
 
 app.configure "development", ->
   app.use express.errorHandler()
+  mongoose.connect 'mongodb://localhost/piano-dev'
 
 app.get "/", routes.index
+app.post "/room/new", room.new
 app.get "/users", user.list
-app.get "/rooms/:id", room.list
+app.get "/room/:name", room.view
 
 
 
