@@ -2,8 +2,8 @@ mongoose = require 'mongoose'
 
 
 Room = new mongoose.Schema(
-  title: String
-  body: String
+  name: String
 )
 
-exports.Room = mongoose.model 'Room', Room
+module.exports = mongoose.model 'Room', Room
+# whats the difference between module.exports and exports.Room
