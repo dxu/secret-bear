@@ -9,17 +9,38 @@ user = require("./routes/user")
 room = require("./routes/room")
 http = require("http")
 path = require("path")
+MongoStore = require('connect-mongo')(express);
+
+settings = 
+  db: "secret-bear"
+#    collection: "sessions"
+#    , host: 
+#    , port: 
+#    , username:
+#    , password:
+#    , auto_reconnect:
+#    , url: 
+#    , mongoose_connection:
+#    , clear_interval:
+#    , stringify:
+  cookie_secret: "COOKIE SECRET"
+
 app = express()
 app.configure ->
   app.set "port", process.env.PORT or 3000
   app.set "views", __dirname + "/views"
   app.set "view engine", "ejs"
   app.use express.favicon()
-  app.use express.logger("dev")
+  app.use express.logger "dev"
   app.use express.bodyParser()
   app.use express.methodOverride()
-  app.use express.cookieParser("your secret here")
-  app.use express.session()
+  app.use express.cookieParser settings.cookie_secret
+  app.use express.session {
+    secret: settings.cookie_secret,
+    store: new MongoStore {
+      db: settings.db
+    }
+  }
   app.use app.router
   app.use express.static(path.join(__dirname, "public"))
 
