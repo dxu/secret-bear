@@ -46,12 +46,16 @@ app.configure ->
 
 app.configure "development", ->
   app.use express.errorHandler()
-  mongoose.connect 'mongodb://localhost/piano-dev'
+  mongoose.connect 'mongodb://localhost/secret-bear'
 
 app.get "/", routes.index
 app.post "/room/new", room.new
 app.get "/users", user.list
 app.get "/room/:name", room.view
+app.get "/login", user.g_login
+app.post "/login", user.p_login
+app.get "/signup", user.g_signup
+app.post "/signup", user.p_signup
 
 
 
